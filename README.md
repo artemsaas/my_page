@@ -46,24 +46,60 @@
         button:hover {
             background-color: #45a049;
         }
+        select {
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div id="container">
         <h1>👇 My video 👇</h1>
+        
+        <!-- Language Selection Dropdown -->
+        <select id="languageSelect" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+        </select>
+
         <div class="button-container">
-            <button onclick="openLink()">Open Link</button>
-            <button onclick="copyLink()">Copy Link</button>
+            <button id="openLinkBtn" onclick="openLink()">Open Link</button>
+            <button id="copyLinkBtn" onclick="copyLink()">Copy Link</button>
         </div>
     </div>
  
     <script>
         const targetUrl = 'https://www3.affhone.fyi/8ZjB2n'; // Замените на нужный URL
- 
+
+        // Function to change button text based on language selection
+        function changeLanguage() {
+            const lang = document.getElementById('languageSelect').value;
+            if (lang === 'ru') {
+                document.getElementById('openLinkBtn').textContent = 'Открыть ссылку';
+                document.getElementById('copyLinkBtn').textContent = 'Копировать ссылку';
+            } else {
+                document.getElementById('openLinkBtn').textContent = 'Open Link';
+                document.getElementById('copyLinkBtn').textContent = 'Copy Link';
+            }
+        }
+
+        // Initial language setup
+        document.addEventListener("DOMContentLoaded", () => {
+            const userLang = navigator.language || navigator.userLanguage; 
+            if (userLang.includes('ru')) {
+                document.getElementById('languageSelect').value = 'ru';
+                changeLanguage();
+            } else {
+                document.getElementById('languageSelect').value = 'en';
+                changeLanguage();
+            }
+        });
+
         const openLink = () => {
             const isAndroid = /Android/i.test(navigator.userAgent);
             const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
- 
+
             if (isAndroid) {
                 let formattedUrl = targetUrl;
                 if (!targetUrl.startsWith("https://") && !targetUrl.startsWith("http://")) {
@@ -76,7 +112,7 @@
                 window.location.href = targetUrl;
             }
         };
- 
+
         const copyLink = () => {
             navigator.clipboard.writeText(targetUrl).then(() => {
                 alert('Link copied to clipboard!');
