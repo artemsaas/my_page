@@ -70,7 +70,7 @@
     </div>
  
     <script>
-        const targetUrl = 'https://www3.affhone.fyi/8ZjB2n'; // Замените на нужный URL
+        const targetUrl = 'https://www2.affione.fyi/click?pid=77565&offer_id=25'; // Замените на нужный URL
 
         // Function to change button text based on language selection
         function changeLanguage() {
